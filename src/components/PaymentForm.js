@@ -1,4 +1,5 @@
 import react, {useState, useEffect} from "react";
+import {validationNumber, validationMounth, validationYear, validationCvc, validationName} from "../functions/validation"
 import * as apiBank from "../utils/apiBank"
 
 const PaymentForm = () => {
@@ -53,76 +54,54 @@ const PaymentForm = () => {
         event.preventDefault();
     }
     
-    const handleChangeName = (event) =>{
-        console.log(event.target.value)
-        let nameChange = event.target.value.replace(/[^a-z A-Z]/g,'')
-        //event.target.value = nameChange
-        setName(nameChange);
-        console.log(nameChange.split(' ').length)
-        if (nameChange.split(' ').length === 2) {
-            setNameError('')
-        } else {
-            setNameError('Имя и фамилия должны состоять из 2 слов разделенных пробелом')
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        switch(name) {
+
+            case 'card-number':
+                const numberCard = value.replace(/[^\d]/g, '').substring(0,24);
+                const cardNumber = numberCard !== '' ? numberCard.match(/.{1,4}/g).join(' ') : '';
+                // event.target.value = numberCard
+                console.log(cardNumber)
+                setNumber(cardNumber);
+                validationNumber(cardNumber, setNumberError)
+                break
+            case 'card-mounth':
+                setMounth(value);
+                validationMounth(value, setMounthError)
+                break
+            case 'card-year':
+                setYear(value);
+                validationYear(value, setYearError)
+                break
+            case 'card-cvc':
+                const cardCvc = value.replace(/\D/g,'').substr(0,3)
+        //      event.target.value = numbCvc;
+        //      console.log(event.target.value)
+                setCvc(cardCvc);
+                validationCvc(cardCvc, setCvcError);
+                break
+            case 'card-name':
+                const nameCard = value.replace(/[^a-z A-Z]/g,'')
+                //event.target.value = nameChange
+                setName(nameCard);
+                validationName(nameCard, setNameError);
+                break
         }
     }
-    const handleChangeNumber = (event) =>{
 
-        let numberCard = event.target.value.replace(/[^\d]/g, '').substring(0,24);
-        numberCard = numberCard !== '' ? numberCard.match(/.{1,4}/g).join(' ') : '';
-        // event.target.value = numberCard
-        console.log(event.target.value)
-        setNumber(numberCard);
+    
 
-        if (numberCard.length < 13) {
-            setNumberError('Номер должен быть больше 12 цифр')
-        } else if (numberCard.length === 0) {
-            setNumberError('Поле не заполнено')
-        } else {
-            setNumberError('')
-        }
-        if (event.target.value.length > 6) {
-            let cardNumb = event.target.value.replace(/\s/g, '').slice(0,6);
-            apiBank.informationRequest(cardNumb)
-            .then((res) => {
-                console.log(res.scheme)
-            })
-            .catch((err) => apiBank.showError(err))
-        }
+    //     if (event.target.value.length > 6) {
+    //         let cardNumb = event.target.value.replace(/\s/g, '').slice(0,6);
+    //         apiBank.informationRequest(cardNumb)
+    //         .then((res) => {
+    //             console.log(res.scheme)
+    //         })
+    //         .catch((err) => apiBank.showError(err))
+    //     }
         
-    }
 
-    const handleChangeMounth = (event) =>{
-        console.log(event.target.value)
-        setMounth(event.target.value);
-        if(event.target.value > 0 && event.target.value !== " ") {
-            setMounthError('')
-        } else {
-            setMounthError('Поле не заполнено')
-        }
-    }
-    const handleChangeYear = (event) =>{
-        console.log(event.target.value)
-        setYear(event.target.value);
-        if(event.target.value > 0 && event.target.value !== " ") {
-            setYearError('')
-        } else {
-            setYearError('Поле не заполнено')
-        }
-    }
-
-    const handleChangeСvc = (event) =>{
-        console.log('etl', event.target.length)
-        let numbCvc = event.target.value.replace(/\D/g,'').substr(0,3)
-        event.target.value = numbCvc;
-        console.log(event.target.value)
-        setCvc(event.target.value);
-        if(numbCvc.length < 2) {
-            setCvcError('Введите 3 цифы')
-        } else {
-            setCvcError('')
-        }
-        
-    }
     return (
         <div className="payment">
             <h3 className="payment__tile">Оплата банковской картой</h3>
@@ -146,7 +125,7 @@ const PaymentForm = () => {
                         <label className="payment__label" htmlFor="card-number">Номер карты</label>
                         <input 
                             value={number || ""} 
-                            onBlur={event => blurHandler(event)} onChange={handleChangeNumber} 
+                            onBlur={event => blurHandler(event)} onChange={handleChange} 
                             type="text" 
                             className={`payment__input ${numberError && numberDirty ? "payment__error" : ""}`} id="card-number" 
                             name="card-number" 
@@ -157,7 +136,7 @@ const PaymentForm = () => {
                     </div>
                     <div className="payment__wrapper gtid__mounth">
                         <label className="payment__label" htmlFor="card-mounth">Месяц</label>
-                         <select className={`payment__select ${mounthError && mounthDirty ? "payment__error" : ""}`} onBlur={event => blurHandler(event)} id="card-mounth" name="card-mounth" value={mounth || ""} onChange={handleChangeMounth}>
+                         <select className={`payment__select ${mounthError && mounthDirty ? "payment__error" : ""}`} onBlur={event => blurHandler(event)} id="card-mounth" name="card-mounth" value={mounth || ""} onChange={handleChange}>
                             <option defaultValue></option>
                             <option>1</option>
                             <option>2</option>
@@ -181,7 +160,7 @@ const PaymentForm = () => {
                             onBlur={event => blurHandler(event)} name="card-year" 
                             id="card-year" 
                             value={year || ""} 
-                            onChange={handleChangeYear}>
+                            onChange={handleChange}>
                             <option defaultValue></option>
                             <option>22</option>
                             <option>23</option>
@@ -196,7 +175,7 @@ const PaymentForm = () => {
                             className={`payment__input payment__cvc ${cvcError && cvcDirty ? "payment__error" : ""}`} 
                             value={cvc || ""} 
                             onBlur={event => blurHandler(event)} 
-                            onChange={handleChangeСvc} 
+                            onChange={handleChange} 
                             id="card-cvc" 
                             name="card-cvc" 
                             placeholder="***" 
@@ -212,7 +191,9 @@ const PaymentForm = () => {
                             className={`payment__input ${nameError && nameDirty ? "payment__error" : ""}`} 
                             type="text" 
                             value={name || ""} 
-                            onBlur={event => blurHandler(event)} onChange={handleChangeName} id="card-name" 
+                            onBlur={event => blurHandler(event)} 
+                            onChange={handleChange} 
+                            id="card-name" 
                             name="card-name" 
                             placeholder="ИМЯ И ФАМИЛИЯ" 
                             required 
