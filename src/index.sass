@@ -1,0 +1,225 @@
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+.App
+    background-color: #E5E5E5
+    font-family: Roboto
+
+.section
+    box-sizing: border-box
+    font-family: Inter, Arial, Helvetica, sans-serif
+    text-rendering: optimizeLegibility
+    max-width: 800px
+    margin: 0 auto
+.header
+    &__title
+        font-style: normal
+        font-weight: bold
+        font-size: 28px
+        line-height: 33px
+        margin: 0
+.main
+
+.payment
+    display: flex
+    flex-direction: column
+    align-items: center
+    position: relative
+    box-sizing: border-box
+    &__tile
+        font-style: normal
+        font-weight: bold
+        font-size: 28px
+        line-height: 33px
+        display: flex
+        align-items: center
+        text-align: center
+        color: #000000
+    &__form
+        box-sizing: border-box
+        width: 427px
+        min-height: 428px
+        background: #FFFFFF
+        border-radius: 10px
+        padding: 140px 35px 35px 35px
+        display: flex
+        justify-content: space-between
+    &__wrapper
+        display: flex
+        flex-direction: column
+        position: relative
+
+    &__label
+        font-style: normal
+        font-weight: normal
+        font-size: 10px
+        line-height: 14px
+        color: #000000
+        margin-bottom: 2px
+        position: absolute
+        top: -6px
+        left: 6px
+        background-color: #fff
+        padding: 0 2px 0 2px
+        text-transform: uppercase
+    &__input
+        height: 40px
+        background-color: inherit
+        border: 1px solid #000000
+        box-sizing: border-box
+        border-radius: 6px
+        text-transform: uppercase
+        text-align: center
+        &-erorr
+            font-size: 10px
+            line-height: 10px
+            color: #fa0404
+            margin: 0
+            position: absolute
+            bottom: 9px
+            height: 20px
+            padding: 0
+            text-transform: uppercase
+    &__input::placeholder
+        font-style: normal
+        font-weight: normal
+        font-size: 18px
+        line-height: 17px
+        text-align: center
+        text-transform: uppercase
+        vertical-align: baseline
+
+    &__box
+        display: flex
+    &__select
+        height: 40px
+        margin-right: 20px
+        background-color: inherit
+        border: 1px solid #000000
+        box-sizing: border-box
+        border-radius: 6px
+        text-align: center
+    &__button
+        margin-top: 9px
+        width: 100%
+        height: 50px
+        border-radius: 6px
+        text-transform: uppercase
+        &-active
+            background-color: #000000
+            border: none
+            color: #ffffff
+            cursor: pointer
+            font-weight: normal
+            font-size: 18px
+            line-height: 22px
+            text-align: center
+            -webkit-transition: opacity 0.5s linear
+            transition: opacity 0.5s linear
+        &-active:hover
+            opacity: 0.8
+        &-disabled
+            background-color: #ffffff
+            border: 1px solid gray
+
+    &__error
+        border: 1px solid #fa0404
+
+.grid
+    display: grid
+    grid-template-columns: 30% 30% 30% 25%
+    grid-template-rows: 70px 70px 70px 70px
+    justify-content: space-between
+    align-items: stretch
+    align-content: stretch
+    justify-items: stretch
+
+    &__number
+        grid-column: span 4 / auto
+    &__mounth
+        grid-row: 2
+        grid-column: 1/2
+    &__year
+        grid-row: 2
+        grid-column: 2/3
+    &__cvc
+        grid-row: 2
+        grid-column: 4/5
+    &__name
+        grid-row: 3
+        grid-column: span 4 / auto
+    &__button
+        grid-row: 4
+        grid-column: span 4 / auto
+
+.card
+    width: 355px
+    height: 225px
+    background-color: #000000
+    box-shadow: 6px 9px 10px rgba(0, 0, 0, 0.25)
+    border-radius: 6px
+    display: flex
+    flex-direction: column
+    padding: 20px
+    color: #FFFFFF
+    justify-content: space-between
+    box-sizing: border-box
+    margin-bottom: -117px
+    z-index: 0
+    &__image
+        display: flex
+        justify-content: space-between
+        flex-grow: 1
+    &__logo
+
+    &__chip
+        background-image: url('./images/chip.svg')
+        width: 63px
+        height: 62px
+    &__number
+        font-style: normal
+        font-weight: normal
+        font-size: 30px
+        line-height: 39px
+        text-align: center
+        color: inherit
+        letter-spacing: 1px
+        margin: 5px 0px 5px 0px
+        word-wrap: break-word
+        display: inline-block
+        width: 100%
+        height: 70px
+    &__bank-logo
+        height: 100%
+    &__info
+        display: flex
+        justify-content: space-between
+        align-items: flex-end
+    &__name
+        font-style: normal
+        font-weight: normal
+        font-size: 16px
+        line-height: 26px
+        margin: 0
+        text-transform: uppercase
+        word-wrap: break-word
+        display: inline-block
+        width: 80%
+
+.valid-thru
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-between
+    &__text
+        font-style: normal
+        font-weight: normal
+        font-size: 10px
+        line-height: 12px
+        margin: 0
+    &__date
+        font-style: normal
+        font-weight: normal
+        font-size: 18px
+        line-height: 26px
+        text-align: center
+        margin: 0
