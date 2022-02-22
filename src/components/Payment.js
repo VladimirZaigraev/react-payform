@@ -1,8 +1,9 @@
 import react, {useState, useEffect} from "react";
 import {validationNumber, validationMounth, validationYear, validationCvc, validationName} from "../functions/validation"
 import * as apiBank from "../utils/apiBank"
+import cardImages from "../functions/cardImages"
 
-const PaymentForm = () => {
+const Payment = () => {
     const [name, setName] = useState('');
     const [nameDirty, setNameDirty] = useState(false)
     const [nameError, setNameError] = useState('Поле не заполнено')
@@ -19,8 +20,10 @@ const PaymentForm = () => {
     const [cvcDirty, setCvcDirty] = useState(false)
     const [cvcError, setCvcError] = useState('Поле не заполнено');
     const [formValid, setFormValid] = useState(false)
-    
-    
+    const [cardBankLogo, setCardBankLogo] = useState('')
+    const [cardScheme, setCardScheme] = useState('')
+    const [cardBankInfo, setCardBankInfo] = useState('')
+
     useEffect(() => {
     if (nameError || numberError || mounthError || yearError || cvcError) {
       setFormValid(false);
@@ -57,7 +60,6 @@ const PaymentForm = () => {
     const handleChange = (event) => {
         const {name, value} = event.target;
         switch(name) {
-
             case 'card-number':
                 const numberCard = value.replace(/[^\d]/g, '').substring(0,24);
                 const cardNumber = numberCard !== '' ? numberCard.match(/.{1,4}/g).join(' ') : '';
@@ -65,6 +67,21 @@ const PaymentForm = () => {
                 console.log(cardNumber)
                 setNumber(cardNumber);
                 validationNumber(cardNumber, setNumberError)
+                
+                if (cardNumber.length > 6) {
+                const cardNumbSlice = cardNumber.replace(/\s/g, '').slice(0,6);
+                apiBank.informationRequest(cardNumbSlice)
+                    .then((res) => {
+                    cardImages(res, setCardBankLogo, setCardScheme, setCardBankInfo)
+                })
+                    .catch((err) => {
+                        apiBank.showError(err)
+                    })
+                } else {
+                    setCardBankLogo('')
+                    setCardScheme('')
+                    setCardBankInfo('')
+                }
                 break
             case 'card-mounth':
                 setMounth(value);
@@ -90,39 +107,29 @@ const PaymentForm = () => {
         }
     }
 
-    
-
-    //     if (event.target.value.length > 6) {
-    //         let cardNumb = event.target.value.replace(/\s/g, '').slice(0,6);
-    //         apiBank.informationRequest(cardNumb)
-    //         .then((res) => {
-    //             console.log(res.scheme)
-    //         })
-    //         .catch((err) => apiBank.showError(err))
-    //     }
-        
-
     return (
         <div className="payment">
             <h3 className="payment__tile">Оплата банковской картой</h3>
             <div className="payment__card card">
                 <div className="card__image">               
                     <div className="card__chip"></div>
-                    <img src="./img/logo.svg" alt="bank-logo" className="card__bank-logo"/>
+                    {cardBankLogo === '' ? <p className="card__bank-info">{cardBankInfo}</p> : <div alt="bank-logo" className="card__bank-logo" style={{ backgroundImage: `url('${cardBankLogo}')` }}></div>}
+
                 </div>
                 <p className="card__number">{number.length > 0 ? number : '0000  0000  0000  0000'}</p>
-                <div className="card__info">
-                    <p className="card__name">{name.length > 0 ? name : 'IVAN IVANOV'}</p>
-                    <div className="card__valid-thru valid-thru">
+                <div className="card__valid-thru valid-thru">
                         <p className="valid-thru__text">MOUNTH/YEAR</p>
                         <div className="valid-thru__date">{mounth.length > 0 ? mounth : '00'}/{year.length > 0 ? year : '00'}</div>
                     </div>
+                <div className="card__info">
+                    <p className="card__name">{name.length > 0 ? name : 'IVAN IVANOV'}</p>
+                    <div  className="card__scheme"  style={{ backgroundImage: `url('${cardScheme}')` }}></div>
                 </div>
             </div>
             <form action="#" className="payment__form" onSubmit={handleSubmit}>
                 <div className="payment__grid grid">
                     <div className="payment__wrapper grid__number">
-                        <label className="payment__label" htmlFor="card-number">Номер карты</label>
+                        <label className={`payment__label ${numberError && numberDirty ? "payment__label-error" : ""}`} htmlFor="card-number">Номер карты</label>
                         <input 
                             value={number || ""} 
                             onBlur={event => blurHandler(event)} onChange={handleChange} 
@@ -135,7 +142,7 @@ const PaymentForm = () => {
                         <span className="payment__input-erorr" id="card-number-error">{numberError && numberDirty ?  numberError : ""}</span>
                     </div>
                     <div className="payment__wrapper gtid__mounth">
-                        <label className="payment__label" htmlFor="card-mounth">Месяц</label>
+                        <label className={`payment__label ${mounthError && mounthDirty ? "payment__label-error" : ""}`} htmlFor="card-mounth">Месяц</label>
                          <select className={`payment__select ${mounthError && mounthDirty ? "payment__error" : ""}`} onBlur={event => blurHandler(event)} id="card-mounth" name="card-mounth" value={mounth || ""} onChange={handleChange}>
                             <option defaultValue></option>
                             <option>1</option>
@@ -154,7 +161,7 @@ const PaymentForm = () => {
                          {mounthError && mounthDirty ? <span className="payment__input-erorr" id="input-year-error">{mounthError}</span> : ""}
                     </div>
                     <div className="payment__wrapper grid__year">
-                        <label className="payment__label" htmlFor="card-year">Год</label>
+                        <label className={`payment__label ${yearError && yearDirty ? "payment__label-error" : ""}`} htmlFor="card-year">Год</label>
                         <select 
                             className={`payment__select ${yearError && yearDirty ? "payment__error" : ""}`} 
                             onBlur={event => blurHandler(event)} name="card-year" 
@@ -165,11 +172,13 @@ const PaymentForm = () => {
                             <option>22</option>
                             <option>23</option>
                             <option>24</option>
+                            <option>25</option>
+                            <option>26</option>
                         </select>
                         {yearError && yearDirty ? <span className="payment__input-erorr" id="input-year-error">{yearError}</span> : ""}
                     </div>
                     <div className="payment__wrapper grid__cvc">
-                        <label className="payment__label" htmlFor="card-cvc">Код</label>
+                        <label className={`payment__label ${cvcError && cvcDirty ? "payment__label-error" : ""}`} htmlFor="card-cvc">Код</label>
                         <input 
                             type="password" 
                             className={`payment__input payment__cvc ${cvcError && cvcDirty ? "payment__error" : ""}`} 
@@ -186,7 +195,7 @@ const PaymentForm = () => {
                         {cvcError && cvcDirty ? <span className="payment__input-erorr" id="input-cvc-error">{cvcError}</span> : ""}
                      </div>
                      <div className="payment__wrapper grid__name">  
-                        <label className="payment__label" htmlFor="card-name">Владелец карты</label>
+                        <label className={`payment__label ${nameError && nameDirty ? "payment__label-error" : ""}`} htmlFor="card-name">Владелец карты</label>
                         <input 
                             className={`payment__input ${nameError && nameDirty ? "payment__error" : ""}`} 
                             type="text" 
@@ -215,4 +224,4 @@ const PaymentForm = () => {
     )
 }
 
-export default PaymentForm;
+export default Payment;

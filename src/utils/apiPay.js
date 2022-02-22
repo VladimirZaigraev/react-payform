@@ -1,14 +1,15 @@
-export const BASE_URL = "https://lookup.binlist.net";
+export const BASE_URL = "http://localhost:2050/";
 const headers = {
             'Content-Type': 'application/json'
-        }
+        },
 const checkResult = (res) =>
   res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
-export const informationRequest = (cardNumb) => {
-  return fetch(`${BASE_URL}/${cardNumb}`, {
-    method: "GET",
+export const postData = (data) => {
+  return fetch(`${BASE_URL}/api/${id}`, {
+    method: "POST",
     headers,
+    body: JSON.stringify(data),
   }).then(checkResult);
 };
 
@@ -17,4 +18,3 @@ export const showError = (err) => {
   console.log(err)
   console.groupEnd()
 }
-

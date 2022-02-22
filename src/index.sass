@@ -3,7 +3,15 @@
 .App
     background-color: #E5E5E5
     font-family: Roboto
-
+    height: 100%
+    //max-width: 880px
+    min-width: 320px
+    margin: 0 auto
+    width: 100%
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    height: 100%
 .section
     box-sizing: border-box
     font-family: Inter, Arial, Helvetica, sans-serif
@@ -23,6 +31,7 @@
     display: flex
     flex-direction: column
     align-items: center
+    justify-content: center
     position: relative
     box-sizing: border-box
     &__tile
@@ -37,7 +46,7 @@
     &__form
         box-sizing: border-box
         width: 427px
-        min-height: 428px
+        min-height: 360px
         background: #FFFFFF
         border-radius: 10px
         padding: 140px 35px 35px 35px
@@ -61,8 +70,10 @@
         background-color: #fff
         padding: 0 2px 0 2px
         text-transform: uppercase
+        &-error
+            color: #fa0404
     &__input
-        height: 40px
+        height: 35px
         background-color: inherit
         border: 1px solid #000000
         box-sizing: border-box
@@ -70,12 +81,12 @@
         text-transform: uppercase
         text-align: center
         &-erorr
-            font-size: 10px
+            font-size: 9px
             line-height: 10px
             color: #fa0404
             margin: 0
             position: absolute
-            bottom: 9px
+            bottom: 5px
             height: 20px
             padding: 0
             text-transform: uppercase
@@ -87,11 +98,13 @@
         text-align: center
         text-transform: uppercase
         vertical-align: baseline
-
+    &__input:focus
+        border: 2px solid #000000
+        outline: none
     &__box
         display: flex
     &__select
-        height: 40px
+        height: 35px
         margin-right: 20px
         background-color: inherit
         border: 1px solid #000000
@@ -99,9 +112,8 @@
         border-radius: 6px
         text-align: center
     &__button
-        margin-top: 9px
         width: 100%
-        height: 50px
+        height: 40px
         border-radius: 6px
         text-transform: uppercase
         &-active
@@ -117,17 +129,18 @@
             transition: opacity 0.5s linear
         &-active:hover
             opacity: 0.8
+
         &-disabled
             background-color: #ffffff
             border: 1px solid gray
-
     &__error
         border: 1px solid #fa0404
 
 .grid
     display: grid
-    grid-template-columns: 30% 30% 30% 25%
-    grid-template-rows: 70px 70px 70px 70px
+    width: 100%
+    grid-template-columns: 25% 25% 25% 25%
+    grid-template-rows: 60px 60px 60px 50px
     justify-content: space-between
     align-items: stretch
     align-content: stretch
@@ -168,18 +181,34 @@
     &__image
         display: flex
         justify-content: space-between
-        flex-grow: 1
     &__logo
-
+    &__scheme
+        // background-image: url('./images/logo-scheme/mastercard.svg')
+        height: 30px
+        width: 40px
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: contain
+        //object-fit: cover
     &__chip
         background-image: url('./images/chip.svg')
-        width: 63px
-        height: 62px
+        width: 45px
+        height: 40px
+        margin-top: 20px
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: contain
+    &__bank-logo
+        height: 60px
+        width: 120px
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: contain
     &__number
         font-style: normal
         font-weight: normal
         font-size: 30px
-        line-height: 39px
+        line-height: 30px
         text-align: center
         color: inherit
         letter-spacing: 1px
@@ -188,12 +217,25 @@
         display: inline-block
         width: 100%
         height: 70px
-    &__bank-logo
-        height: 100%
+        vertical-align: middle
+    &__bank
+        &-logo
+            height: 100%
+            widht: 50%
+            background-repeat: no-repeat
+            background-position: center center
+            background-size: contain
+        &-info
+            display: inline-block
+            width: 50%
+            margin: 0
+            word-wrap: break-word
+            text-align: right
     &__info
         display: flex
         justify-content: space-between
         align-items: flex-end
+        height: 25px
     &__name
         font-style: normal
         font-weight: normal
@@ -210,16 +252,18 @@
     flex-direction: column
     align-items: center
     justify-content: space-between
+    height: 30px
     &__text
         font-style: normal
         font-weight: normal
-        font-size: 10px
-        line-height: 12px
+        font-size: 8px
+        line-height: 8px
         margin: 0
     &__date
         font-style: normal
         font-weight: normal
-        font-size: 18px
-        line-height: 26px
+        font-size: 14px
+        line-height: 14px
         text-align: center
         margin: 0
+        padding: 0
