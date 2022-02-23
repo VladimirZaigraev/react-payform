@@ -3,14 +3,16 @@ import visa from '../images/logo-scheme/visa.svg'
 import mir from '../images/logo-scheme/mir.svg'
 import discover from '../images/logo-scheme/discover.svg'
 import ae from '../images/logo-scheme/american_express.svg'
+
 import alfaBank from '../images/logo-bank/alfa-bank.svg'
 import sberbank from '../images/logo-bank/sberbank.svg'
 import vtb from '../images/logo-bank/vtb.svg'
 
-const cardImages = (res, setCardBankLogo, setCardTipe, setCardBankInfo) => {
+const cardInfo = (res, setCardBankLogo, setCardTipe, setCardBankInfo) => {
   console.log(res)
   const scheme = res.scheme
   const bank = res.bank.name
+
   switch (scheme){    
     case 'mastercard':
       setCardTipe(mastercard)
@@ -24,6 +26,9 @@ const cardImages = (res, setCardBankLogo, setCardTipe, setCardBankInfo) => {
     case 'discover':
       setCardTipe(discover)
       break;
+    case 'American Express':
+      setCardTipe(ae)
+      break;
 
   }
   switch (bank) {
@@ -36,12 +41,9 @@ const cardImages = (res, setCardBankLogo, setCardTipe, setCardBankInfo) => {
     case 'VTB24':
       setCardBankLogo(vtb)
       break;
-    case 'American Express':
-      setCardBankLogo(ae)
-      break;
     default: 
       setCardBankInfo(bank)
   }
   
 }
-export default cardImages;
+export default cardInfo;

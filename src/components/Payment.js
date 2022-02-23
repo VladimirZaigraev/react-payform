@@ -1,57 +1,64 @@
 import react, {useState, useEffect} from "react";
+import {Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import {validationNumber, validationMounth, validationYear, validationCvc, validationName} from "../functions/validation"
 import * as apiBank from "../utils/apiBank"
-import cardImages from "../functions/cardImages"
+import cardInfo from "../functions/cardInfo"
+import Form from "./Form";
+import PayStatus from "./PayStatus";
+import Card from "./Card";
 
 const Payment = () => {
     const [name, setName] = useState('');
-    const [nameDirty, setNameDirty] = useState(false)
-    const [nameError, setNameError] = useState('Поле не заполнено')
     const [number, setNumber] = useState('')
-    const [numberDirty, setNumberDirty] = useState(false)
-    const [numberError, setNumberError] = useState('Поле не заполнено')
     const [mounth, setMounth] = useState('')
-    const [mounthDirty, setMounthDirty] = useState(false)
-    const [mounthError, setMounthError] = useState('Поле не заполнено')
     const [year, setYear] = useState('')
-    const [yearDirty, setYearDirty] = useState(false)
-    const [yearError, setYearError] = useState('Поле не заполнено')
     const [cvc, setCvc] = useState('')
+
+    const [nameDirty, setNameDirty] = useState(false)
+    const [numberDirty, setNumberDirty] = useState(false)
+    const [mounthDirty, setMounthDirty] = useState(false)
+    const [yearDirty, setYearDirty] = useState(false)
     const [cvcDirty, setCvcDirty] = useState(false)
-    const [cvcError, setCvcError] = useState('Поле не заполнено');
+    
     const [formValid, setFormValid] = useState(false)
+
+    const [nameError, setNameError] = useState('Поле не заполнено')
+    const [numberError, setNumberError] = useState('Поле не заполнено')
+    const [mounthError, setMounthError] = useState('Поле не заполнено')
+    const [yearError, setYearError] = useState('Поле не заполнено')
+    const [cvcError, setCvcError] = useState('Поле не заполнено');
+
     const [cardBankLogo, setCardBankLogo] = useState('')
     const [cardScheme, setCardScheme] = useState('')
     const [cardBankInfo, setCardBankInfo] = useState('')
 
-    useEffect(() => {
-    if (nameError || numberError || mounthError || yearError || cvcError) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
-    }
-  }, [nameError, numberError, mounthError, yearError, cvcError]);
-
-
     const blurHandler = (event) => {
-        switch (event.target.name) {
-            case 'card-number':
-                setNumberDirty(true)
-                break
-            case 'card-mounth':
-                setMounthDirty(true)
-                break
-            case 'card-year':
-                setYearDirty(true)
-                break
-            case 'card-cvc':
-                setCvcDirty(true)
-                break
-            case 'card-name':
-                setNameDirty(true)
-                break
-        }
+    switch (event.target.name) {
+      case 'card-number':
+        setNumberDirty(true)
+        break
+      case 'card-mounth':
+        setMounthDirty(true)
+        break
+      case 'card-year':
+        setYearDirty(true)
+        break
+      case 'card-cvc':
+        setCvcDirty(true)
+        break
+      case 'card-name':
+        setNameDirty(true)
+        break
+      }
     }
+
+    useEffect(() => {
+        if (nameError || numberError || mounthError || yearError || cvcError) {
+        setFormValid(false);
+        } else {
+        setFormValid(true);
+        }
+    }, [nameError, numberError, mounthError, yearError, cvcError]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,7 +70,6 @@ const Payment = () => {
             case 'card-number':
                 const numberCard = value.replace(/[^\d]/g, '').substring(0,24);
                 const cardNumber = numberCard !== '' ? numberCard.match(/.{1,4}/g).join(' ') : '';
-                // event.target.value = numberCard
                 console.log(cardNumber)
                 setNumber(cardNumber);
                 validationNumber(cardNumber, setNumberError)
@@ -72,8 +78,8 @@ const Payment = () => {
                 const cardNumbSlice = cardNumber.replace(/\s/g, '').slice(0,6);
                 apiBank.informationRequest(cardNumbSlice)
                     .then((res) => {
-                    cardImages(res, setCardBankLogo, setCardScheme, setCardBankInfo)
-                })
+                    cardInfo(res, setCardBankLogo, setCardScheme, setCardBankInfo)
+                    })
                     .catch((err) => {
                         apiBank.showError(err)
                     })
@@ -93,14 +99,11 @@ const Payment = () => {
                 break
             case 'card-cvc':
                 const cardCvc = value.replace(/\D/g,'').substr(0,3)
-        //      event.target.value = numbCvc;
-        //      console.log(event.target.value)
                 setCvc(cardCvc);
                 validationCvc(cardCvc, setCvcError);
                 break
             case 'card-name':
                 const nameCard = value.replace(/[^a-z A-Z]/g,'')
-                //event.target.value = nameChange
                 setName(nameCard);
                 validationName(nameCard, setNameError);
                 break
@@ -110,116 +113,45 @@ const Payment = () => {
     return (
         <div className="payment">
             <h3 className="payment__tile">Оплата банковской картой</h3>
-            <div className="payment__card card">
-                <div className="card__image">               
-                    <div className="card__chip"></div>
-                    {cardBankLogo === '' ? <p className="card__bank-info">{cardBankInfo}</p> : <div alt="bank-logo" className="card__bank-logo" style={{ backgroundImage: `url('${cardBankLogo}')` }}></div>}
-
-                </div>
-                <p className="card__number">{number.length > 0 ? number : '0000  0000  0000  0000'}</p>
-                <div className="card__valid-thru valid-thru">
-                        <p className="valid-thru__text">MOUNTH/YEAR</p>
-                        <div className="valid-thru__date">{mounth.length > 0 ? mounth : '00'}/{year.length > 0 ? year : '00'}</div>
-                    </div>
-                <div className="card__info">
-                    <p className="card__name">{name.length > 0 ? name : 'IVAN IVANOV'}</p>
-                    <div  className="card__scheme"  style={{ backgroundImage: `url('${cardScheme}')` }}></div>
-                </div>
+                <Card
+                    name={name}
+                    number={number}
+                    mounth={mounth}
+                    year={year}
+                    cardBankLogo ={cardBankLogo} 
+                    cardScheme = {cardScheme}
+                    cardBankInfo ={cardBankInfo}
+                    />
+            <div className="payment__wrapper">
+                <Switch>
+                <Route exact path="/">
+                    <Form
+                    name={name}
+                    number={number}
+                    mounth={mounth}
+                    year={year}
+                    cvc={cvc}
+                    handleChange={handleChange}
+                    blurHandler={blurHandler}
+                    handleSubmit={handleSubmit}
+                    numberError={numberError}
+                    numberDirty={numberDirty}
+                    mounthError={mounthError}
+                    yearError={yearError}
+                    yearDirty={yearDirty}
+                    mounthDirty={mounthDirty}
+                    cvcError={cvcError}
+                    cvcDirty={cvcDirty}
+                    nameDirty={nameDirty}
+                    nameError={nameError}
+                    formValid={formValid}
+                    />
+                </Route>
+                <Route path="/check">
+                    <PayStatus></PayStatus>
+                </Route> 
+            </Switch>
             </div>
-            <form action="#" className="payment__form" onSubmit={handleSubmit}>
-                <div className="payment__grid grid">
-                    <div className="payment__wrapper grid__number">
-                        <label className={`payment__label ${numberError && numberDirty ? "payment__label-error" : ""}`} htmlFor="card-number">Номер карты</label>
-                        <input 
-                            value={number || ""} 
-                            onBlur={event => blurHandler(event)} onChange={handleChange} 
-                            type="text" 
-                            className={`payment__input ${numberError && numberDirty ? "payment__error" : ""}`} id="card-number" 
-                            name="card-number" 
-                            placeholder="0000  0000  0000  0000" required minLength="13" 
-                            maxLength="23" 
-                            autoComplete="off"/>
-                        <span className="payment__input-erorr" id="card-number-error">{numberError && numberDirty ?  numberError : ""}</span>
-                    </div>
-                    <div className="payment__wrapper gtid__mounth">
-                        <label className={`payment__label ${mounthError && mounthDirty ? "payment__label-error" : ""}`} htmlFor="card-mounth">Месяц</label>
-                         <select className={`payment__select ${mounthError && mounthDirty ? "payment__error" : ""}`} onBlur={event => blurHandler(event)} id="card-mounth" name="card-mounth" value={mounth || ""} onChange={handleChange}>
-                            <option defaultValue></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                         </select>
-                         {mounthError && mounthDirty ? <span className="payment__input-erorr" id="input-year-error">{mounthError}</span> : ""}
-                    </div>
-                    <div className="payment__wrapper grid__year">
-                        <label className={`payment__label ${yearError && yearDirty ? "payment__label-error" : ""}`} htmlFor="card-year">Год</label>
-                        <select 
-                            className={`payment__select ${yearError && yearDirty ? "payment__error" : ""}`} 
-                            onBlur={event => blurHandler(event)} name="card-year" 
-                            id="card-year" 
-                            value={year || ""} 
-                            onChange={handleChange}>
-                            <option defaultValue></option>
-                            <option>22</option>
-                            <option>23</option>
-                            <option>24</option>
-                            <option>25</option>
-                            <option>26</option>
-                        </select>
-                        {yearError && yearDirty ? <span className="payment__input-erorr" id="input-year-error">{yearError}</span> : ""}
-                    </div>
-                    <div className="payment__wrapper grid__cvc">
-                        <label className={`payment__label ${cvcError && cvcDirty ? "payment__label-error" : ""}`} htmlFor="card-cvc">Код</label>
-                        <input 
-                            type="password" 
-                            className={`payment__input payment__cvc ${cvcError && cvcDirty ? "payment__error" : ""}`} 
-                            value={cvc || ""} 
-                            onBlur={event => blurHandler(event)} 
-                            onChange={handleChange} 
-                            id="card-cvc" 
-                            name="card-cvc" 
-                            placeholder="***" 
-                            required 
-                            minLength="3" 
-                            maxLength="3" 
-                            autoComplete="off"/>
-                        {cvcError && cvcDirty ? <span className="payment__input-erorr" id="input-cvc-error">{cvcError}</span> : ""}
-                     </div>
-                     <div className="payment__wrapper grid__name">  
-                        <label className={`payment__label ${nameError && nameDirty ? "payment__label-error" : ""}`} htmlFor="card-name">Владелец карты</label>
-                        <input 
-                            className={`payment__input ${nameError && nameDirty ? "payment__error" : ""}`} 
-                            type="text" 
-                            value={name || ""} 
-                            onBlur={event => blurHandler(event)} 
-                            onChange={handleChange} 
-                            id="card-name" 
-                            name="card-name" 
-                            placeholder="ИМЯ И ФАМИЛИЯ" 
-                            required 
-                            minLength="4" 
-                            maxLength="20" 
-                            autoComplete="off"/>
-                        {nameError && nameDirty ? 
-                        <span className="payment__input-erorr" id="input-name-error">{nameError}</span> : ""}
-                    </div>
-                    <button 
-                        className={`grid__button payment__button ${formValid ? 'payment__button-active' : 'payment__button-disabled'}`} type="submit" 
-                        name="paymentButton"
-                        disabled={!formValid}
-                        >Оплатить
-                    </button>
-                </div>       
-            </form>
         </div>
     )
 }
