@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/VladimirZaigraev/react-payform/static/css/main.1745bad0.css",
+    "main.js": "/VladimirZaigraev/react-payform/static/js/main.ef440935.js",
+    "static/js/787.9c873f55.chunk.js": "/VladimirZaigraev/react-payform/static/js/787.9c873f55.chunk.js",
+    "static/media/Inter-Medium.woff": "/VladimirZaigraev/react-payform/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/VladimirZaigraev/react-payform/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/VladimirZaigraev/react-payform/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/VladimirZaigraev/react-payform/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/VladimirZaigraev/react-payform/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/VladimirZaigraev/react-payform/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/sberbank.svg": "/VladimirZaigraev/react-payform/static/media/sberbank.a0d86d941d53ff47a98717691efcff89.svg",
+    "static/media/chip.svg": "/VladimirZaigraev/react-payform/static/media/chip.b972779012ee6ab08c29.svg",
+    "static/media/american_express.svg": "/VladimirZaigraev/react-payform/static/media/american_express.6d5c3fa041f32ba7b26e642f8204dd50.svg",
+    "static/media/alfa-bank.svg": "/VladimirZaigraev/react-payform/static/media/alfa-bank.ae34d4b8d6aa124da4cbf2b17b1be7ae.svg",
+    "static/media/mastercard.svg": "/VladimirZaigraev/react-payform/static/media/mastercard.00ec9f7b058d0e5801c192f19e386884.svg",
+    "static/media/discover.svg": "/VladimirZaigraev/react-payform/static/media/discover.68bf960d4c9d4a9fdf83c11210ed9dc5.svg",
+    "static/media/vtb.svg": "/VladimirZaigraev/react-payform/static/media/vtb.625a13dfcf8479059978192ee80a77dd.svg",
+    "static/media/visa.svg": "/VladimirZaigraev/react-payform/static/media/visa.e8d1da0f63db4ca59b5f6be2c9c913b6.svg",
+    "static/media/mir.svg": "/VladimirZaigraev/react-payform/static/media/mir.e09826827fe45ab0b580b9b595ca0baf.svg",
+    "index.html": "/VladimirZaigraev/react-payform/index.html",
+    "main.1745bad0.css.map": "/VladimirZaigraev/react-payform/static/css/main.1745bad0.css.map",
+    "main.ef440935.js.map": "/VladimirZaigraev/react-payform/static/js/main.ef440935.js.map",
+    "787.9c873f55.chunk.js.map": "/VladimirZaigraev/react-payform/static/js/787.9c873f55.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1745bad0.css",
+    "static/js/main.ef440935.js"
+  ]
+}
