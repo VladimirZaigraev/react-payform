@@ -109,7 +109,7 @@ const Payment = () => {
                 break
         }
     }
-
+    
     return (
         <main className="main section">
             <div className="payment">
