@@ -19,14 +19,14 @@
 
 ##### Скриншоты
 
-![Image alt] (https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/1.jpg)
+![Image alt](https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/1.jpg)
 
 Отображение ошибок
-![Image alt] (https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/2.jpg)
+![Image alt](https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/2.jpg)
 
 Заполненая форма с отображением информации о банке и видом карты
-![Image alt] (https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/4.jpg)
-![Image alt] (https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/3.jpg)
+![Image alt](https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/4.jpg)
+![Image alt](https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/3.jpg)
 
 > Проект находится в разработке.
 > Планируется разработка серверной части, с реализацией ответов с подтверждением и отказом платежа.
