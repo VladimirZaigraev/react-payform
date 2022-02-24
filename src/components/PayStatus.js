@@ -1,24 +1,6 @@
 import React from "react";
 
 const PayStatus = () => {
-  //  
-  //   const [success, setSuccess] = useState(false);
-  //   const [error, setError] = useState(false);
-  //   const [load, setLoading] = useState(true);
-
-  //   const checkStatus = (status) => {
-  //       if (status === 'ok') {
-  //           setSuccess(true);
-  //           setLoading(false)
-  //           return false;
-  //       }
-  //       if (status === 'fail') {
-  //           setError(true);
-  //           setLoading(false)
-  //           return false;
-  //       }
-  //       return true;
-  //   }
 
   return(
     <div className="check">

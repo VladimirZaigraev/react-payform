@@ -1,5 +1,5 @@
 import react, {useState, useEffect} from "react";
-import {Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {validationNumber, validationMounth, validationYear, validationCvc, validationName} from "../functions/validation"
 import * as apiBank from "../utils/apiBank"
 import cardInfo from "../functions/cardInfo"
@@ -111,48 +111,50 @@ const Payment = () => {
     }
 
     return (
-        <div className="payment">
-            <h3 className="payment__tile">Оплата банковской картой</h3>
-                <Card
-                    name={name}
-                    number={number}
-                    mounth={mounth}
-                    year={year}
-                    cardBankLogo ={cardBankLogo} 
-                    cardScheme = {cardScheme}
-                    cardBankInfo ={cardBankInfo}
-                    />
-            <div className="payment__wrapper">
-                <Switch>
-                <Route exact path="/">
-                    <Form
-                    name={name}
-                    number={number}
-                    mounth={mounth}
-                    year={year}
-                    cvc={cvc}
-                    handleChange={handleChange}
-                    blurHandler={blurHandler}
-                    handleSubmit={handleSubmit}
-                    numberError={numberError}
-                    numberDirty={numberDirty}
-                    mounthError={mounthError}
-                    yearError={yearError}
-                    yearDirty={yearDirty}
-                    mounthDirty={mounthDirty}
-                    cvcError={cvcError}
-                    cvcDirty={cvcDirty}
-                    nameDirty={nameDirty}
-                    nameError={nameError}
-                    formValid={formValid}
-                    />
-                </Route>
-                <Route path="/check">
-                    <PayStatus></PayStatus>
-                </Route> 
-            </Switch>
+        <main className="main section">
+            <div className="payment">
+                <h3 className="payment__tile">Оплата банковской картой</h3>
+                    <Card
+                        name={name}
+                        number={number}
+                        mounth={mounth}
+                        year={year}
+                        cardBankLogo ={cardBankLogo} 
+                        cardScheme = {cardScheme}
+                        cardBankInfo ={cardBankInfo}
+                        />
+                <div className="payment__wrapper">
+                    <Switch>
+                    <Route exact path="/">
+                        <Form
+                        name={name}
+                        number={number}
+                        mounth={mounth}
+                        year={year}
+                        cvc={cvc}
+                        handleChange={handleChange}
+                        blurHandler={blurHandler}
+                        handleSubmit={handleSubmit}
+                        numberError={numberError}
+                        numberDirty={numberDirty}
+                        mounthError={mounthError}
+                        yearError={yearError}
+                        yearDirty={yearDirty}
+                        mounthDirty={mounthDirty}
+                        cvcError={cvcError}
+                        cvcDirty={cvcDirty}
+                        nameDirty={nameDirty}
+                        nameError={nameError}
+                        formValid={formValid}
+                        />
+                    </Route>
+                    <Route path="/check">
+                        <PayStatus/>
+                    </Route> 
+                </Switch>
+                </div>
             </div>
-        </div>
+        </main>
     )
 }
 
