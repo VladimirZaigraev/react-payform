@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-payform/static/css/main.05c16a04.css",
-    "main.js": "/react-payform/static/js/main.14832ef5.js",
+    "main.js": "/react-payform/static/js/main.215e53c3.js",
     "static/js/787.9c873f55.chunk.js": "/react-payform/static/js/787.9c873f55.chunk.js",
     "static/media/Inter-Medium.woff": "/react-payform/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff": "/react-payform/static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -20,11 +20,11 @@
     "static/media/mir.svg": "/react-payform/static/media/mir.e09826827fe45ab0b580b9b595ca0baf.svg",
     "index.html": "/react-payform/index.html",
     "main.05c16a04.css.map": "/react-payform/static/css/main.05c16a04.css.map",
-    "main.14832ef5.js.map": "/react-payform/static/js/main.14832ef5.js.map",
+    "main.215e53c3.js.map": "/react-payform/static/js/main.215e53c3.js.map",
     "787.9c873f55.chunk.js.map": "/react-payform/static/js/787.9c873f55.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.05c16a04.css",
-    "static/js/main.14832ef5.js"
+    "static/js/main.215e53c3.js"
   ]
 }
