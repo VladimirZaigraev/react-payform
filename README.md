@@ -1,4 +1,5 @@
 # Форма оплаты
+Ссылка на ghpage: https://vladimirzaigraev.github.io/react-payform/
 
 ## _v1.1_
 
@@ -29,7 +30,6 @@
 ![Image alt](https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/4.jpg)
 ![Image alt](https://github.com/VladimirZaigraev/react-payform/blob/master/screenshot/3.jpg)
 
-Ссылка на ghpage: https://vladimirzaigraev.github.io/react-payform/
 
 > Проект находится в разработке.
 > Планируется разработка серверной части, с реализацией ответов с подтверждением и отказом платежа.
