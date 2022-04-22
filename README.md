@@ -18,11 +18,10 @@
 1. HTML - семантическая верска
     - БЭМ - наименованеие класов
 2. SASS
-3. JavaScript (ES6) функциональный подход
+3. JavaScript (ES6) функциональный подход, fetch API
 4. React - функциональные компоненты.
     - Функции Link, Switch, Route.
     - Хуки useState, useEffect, useContext
-5. Rest Api
 
 <h3 align="center">Скриншоты</h1>
 
